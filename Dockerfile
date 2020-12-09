@@ -5,11 +5,22 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=Etc/UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt-get update && apt-get -y upgrade
+RUN apt-get update #&& apt-get -y upgrade
 
 
-RUN apt-get install -y --no-install-recommends git wget unzip sudo pandoc openjdk-8-jdk r-base \
+RUN apt-get install -y --no-install-recommends git wget unzip sudo pandoc openjdk-8-jdk  \
 	bzip2 gcc g++ coreutils lsb-release curl libcurl4-openssl-dev 
+
+RUN apt-get install -y make gfortran libreadline6-dev libx11-dev libxt-dev \
+                               libpng-dev libjpeg-dev libcairo2-dev xvfb \
+                               libbz2-dev libzstd-dev liblzma-dev \
+                               libcurl4-openssl-dev \
+                               texinfo texlive texlive-fonts-extra \
+                               screen wget libpcre2-dev
+
+RUN wget https://cran.rstudio.com/src/base/R-3/R-3.6.3.tar.gz
+RUN tar zxvf R-3.6.3.tar.gz
+RUN cd R-3.6.3 && ./configure --enable-R-shlib && make && make install
 
 ENV RSTUDIO_DISABLE_CRASHPAD=1
 
@@ -23,8 +34,6 @@ RUN cd rstudio; mkdir build; cd build; cmake .. -DRSTUDIO_TARGET=Server -DCMAKE_
 # post installation
 
 RUN useradd -ms /bin/bash rstudio-server
-
-RUN cd rstudio/build; pwd;  ls
 
 RUN cp /usr/local/lib/rstudio-server/extras/init.d/debian/rstudio-server /etc/init.d/rstudio-server
 RUN cd /etc/init.d; chmod +x rstudio-server
