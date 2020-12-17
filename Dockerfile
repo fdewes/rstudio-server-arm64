@@ -10,7 +10,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update && apt-get -y upgrade 
 
-RUN apt-get install -y git \
+RUN apt-get install -y --no-install-recommends git \
 	wget \
 	unzip \
 	sudo \
