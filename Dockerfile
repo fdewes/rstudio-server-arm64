@@ -10,7 +10,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update && apt-get -y upgrade 
 
-RUN apt-get install -y --no-install-recommends git \
+RUN apt-get install -y git \
 	wget \
 	unzip \
 	sudo \
@@ -55,6 +55,11 @@ ENV RSTUDIO_VERSION_MINOR=1
 
 RUN git clone https://github.com/rstudio/rstudio
 RUN cd rstudio && git checkout origin/v1.1-patch
+
+RUN echo "#!/usr/bin/env bash" > rstudio/dependencies/common/install-pandoc
+RUN chmod +x rstudio/dependencies/common/install-pandoc
+RUN touch rstudio/dependencies/common/pandoc
+
 RUN cd rstudio/dependencies/linux;./install-dependencies-debian --exclude-qt-sdk
 
 
