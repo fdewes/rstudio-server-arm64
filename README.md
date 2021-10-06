@@ -3,7 +3,7 @@ Compiles rstudio server 1.4 and R 4.1.1 for the arm64 platform / tested on a ras
 
 to compile from source clone this repository then run
 
-    docker build -tag armrstudio . && docker run -d -p8787:8787 armrstudio
+    docker build --tag armrstudio . && docker run -d -p8787:8787 armrstudio
 
 there is also a precompiled arm64 version available on hub.docker.com
   
