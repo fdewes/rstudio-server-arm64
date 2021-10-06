@@ -1,5 +1,5 @@
 # rstudio-server-arm64
-Compiles rstudio server 1.1 and R 3.6.3 for the arm64 platform / tested on a raspberry pi 4 with 4gb ram
+Compiles rstudio server 1.4 and R 4.1.1 for the arm64 platform / tested on a raspberry pi 4 with 4gb ram
 
 to compile from source clone this repository then run
 
